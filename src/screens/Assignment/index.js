@@ -23,7 +23,7 @@ import Tts from 'react-native-tts';
 import _ from "lodash";
 
 // Components
-import {Images , AssignActionSheet} from '../../components';
+import {Images , AssignActionSheet,AssignListItem} from '../../components';
 
 // Styles
 import styles from './style';
@@ -42,7 +42,7 @@ class Assignment extends Component {
         this.state = {           
         }; 
         
-       // Tts.getInitStatus().then(this.initTts);      
+        Tts.getInitStatus().then(this.initTts);      
 
     }    
     componentDidMount(){
@@ -64,10 +64,12 @@ class Assignment extends Component {
         }
     }
     initTts = async () => {
-        const voices = await Tts.voices();     
+        const voices = await Tts.voices(); 
+        //console.warn(voices)    
+
         if (voices && voices.length > 0) {
           try {
-            await Tts.setDefaultLanguage(voices[0].language);
+            await Tts.setDefaultLanguage(voices[0 ].language);
           } catch (err) {
             console.log(`setDefaultLanguage error `, err);
           }
@@ -80,19 +82,23 @@ class Assignment extends Component {
     }
     renderAssignItem = (item) =>{
         return(
-            <Fragment>
-                {!! item.text ?    
-                <Card>
-                    <CardItem>
-                    <Body>
-                        <Text>
-                            {item.text}
-                        </Text>
-                    </Body>
-                    </CardItem>
-                </Card>
-                : null}
-            </Fragment>
+            <AssignListItem index={ item.index } >
+                <Fragment>
+                    {!! item.text ?    
+                        <Card>
+                            <CardItem>
+                            <Body>
+                                <Text>
+                                    {item.text}
+                                </Text>
+                            </Body>
+                            </CardItem>
+                        </Card>
+                        : null
+                    }
+                </Fragment>
+            </AssignListItem>
+            
            
         )
     }
@@ -100,8 +106,7 @@ class Assignment extends Component {
         let {callQuery,assignQuery,assignList} = this.props;
         assignList = _.orderBy(assignList, ['order'],['asc']);
         return (
-            <Container style={styles.containerViewStyle}>
-               
+            <Container style={styles.containerViewStyle}>              
                 
                     <View style={styles.messageListViewStyle}>
                         <Text style = {{marginVertical: 15, textAlign: 'center'}}>

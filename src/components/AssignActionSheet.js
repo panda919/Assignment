@@ -96,8 +96,8 @@ class AssignActionSheet extends Component {
                     self.onCallQuery(true)
                 });
             }
-        } catch (e) {
-            console.warn(e);
+        } catch (err) {
+            console.warn(err);
         }
     }
     stopVoiceRecognition = async(e)  => {
@@ -106,8 +106,8 @@ class AssignActionSheet extends Component {
         });
         try {
           await Voice.stop()
-        } catch (e) {
-          console.warn(e);
+        } catch (err) {
+          console.warn(err);
         }
     }
     startVoiceRecognition = async(e)  => {
@@ -117,8 +117,8 @@ class AssignActionSheet extends Component {
         });
         try {
           await Voice.start('en-US');
-        } catch (e) {
-          console.warn(e);
+        } catch (err) {
+          console.warn(err);
         }
     }
     onCallQuery = (voiceQuery = true) =>{
@@ -127,7 +127,8 @@ class AssignActionSheet extends Component {
         if(voiceQuery == true){
             queryModel =  _.extend(queryModel,{mode: 201})
         }
-        this.props.callQuery(queryModel)
+        this.props.callQuery(queryModel);
+        setTimeout(() => this.setState({queryMessage: ''}), 200)
         //console.warn(queryMessage)
     }
 

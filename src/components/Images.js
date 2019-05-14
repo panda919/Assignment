@@ -6,6 +6,7 @@ const Images = {
     Mic_Animation: require('../assets/images/Mic_Animation.gif'),
     Google: require('../assets/images/Google.gif'),
     keyboard_686x800: require('../assets/images/keyboard_686x800.jpg'),
+    submit: require('../assets/images/submit.png'),
 
 };
 export default Images;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Dimensions, TouchableOpacity,Image } from 'react-native';
+import { View, Dimensions, TouchableOpacity,Image,Keyboard } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { Icon, Input } from 'react-native-elements';
@@ -34,14 +34,31 @@ class QueryInput extends Component {
                     onSubmitEditing = {this.props.onSubmitEditing}
                 /> 
                 <View style = {{marginLeft: 0}}>
-                    <TouchableOpacity  onPress={this.props.onRightPress}>
-                        <View style={{
-                            width: 36,
-                            height: 36,                   
-                        }}>
-                            <Image source={Images.mic_1394x1394  } style = {{width: 36, height: 36}}/>
-                        </View>
-                    </TouchableOpacity>
+                    {
+                        this.props.queryMessage === "" 
+                        ?
+                            <TouchableOpacity  onPress={this.props.onRightPress}>
+                                <View style={{
+                                    width: 36,
+                                    height: 36,                   
+                                }}>
+                                    <Image source={Images.mic_1394x1394  } style = {{width: 36, height: 36}}/>
+                                </View>
+                            </TouchableOpacity>
+                        :
+                            <TouchableOpacity  onPress={() => {
+                                Keyboard.dismiss();
+                                this.props.onSubmitEditing(this.props.queryMessage)}
+                                }>
+                                <View style={{
+                                    width: 36,
+                                    height: 36,                   
+                                }}>
+                                    <Image source={Images.submit  } style = {{width: 36, height: 36}}/>
+                                </View>
+                            </TouchableOpacity>
+                    }
+                    
                 </View>
                
              
